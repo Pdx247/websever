@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI法律助手</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div id="app" class="app hidden">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <button id="newChatBtn" class="btn btn-primary sidebar-new-btn">+ 新建对话</button>
+        </div>
+
+        <div id="conversationList" class="conversation-list"></div>
+
+        <div class="sidebar-footer">
+          <button id="adminBtn" class="btn btn-ghost hidden">管理员设置</button>
+          <button id="logoutBtn" class="btn btn-ghost">退出登录</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button id="mobileMenuBtn" class="btn btn-ghost mobile-only">菜单</button>
+            <div class="topbar-title">AI法律助手</div>
+          </div>
+          <div class="topbar-right">
+            <button id="themeBtn" class="btn btn-ghost">浅色模式</button>
+            <div id="userBadge" class="user-badge"></div>
+          </div>
+        </header>
+
+        <section id="messages" class="messages"></section>
+
+        <footer class="composer-wrap">
+          <div class="composer-shell">
+            <div class="composer">
+              <textarea
+                id="inputBox"
+                rows="1"
+                maxlength="5000"
+                placeholder="输入你的法律问题"
+              ></textarea>
+              <button id="sendBtn" class="send-btn" aria-label="发送">↑</button>
+            </div>
+            <div class="composer-note">AI 输出仅供参考，重大事项请咨询执业律师。</div>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <div id="authModal" class="modal-overlay">
+      <div class="modal auth-modal">
+        <div class="auth-tabs">
+          <button id="tabLogin" class="tab active">登录</button>
+          <button id="tabRegister" class="tab">注册</button>
+        </div>
+        <form id="authForm" class="form">
+          <label>用户名</label>
+          <input id="authUsername" type="text" required minlength="3" maxlength="50" />
+          <label>密码</label>
+          <input id="authPassword" type="password" required minlength="6" maxlength="100" />
+          <button type="submit" class="btn btn-primary" id="authSubmitBtn">登录</button>
+        </form>
+        <div class="hint">首次启动默认管理员：admin / admin123</div>
+      </div>
+    </div>
+
+    <div id="adminModal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-title">管理员配置</div>
+        <form id="adminForm" class="form">
+          <label>API 密钥</label>
+          <input id="apiKeyInput" type="password" placeholder="sk-..." />
+          <label>接口地址（Base URL）</label>
+          <input id="baseUrlInput" type="text" placeholder="https://api.openai.com/v1" />
+          <label>模型名称</label>
+          <input id="modelInput" type="text" placeholder="gpt-4o-mini" />
+          <div class="modal-actions">
+            <button type="button" id="closeAdminBtn" class="btn btn-ghost">取消</button>
+            <button type="submit" class="btn btn-primary">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+          processEscapes: true,
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
